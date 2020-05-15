@@ -86,17 +86,23 @@ fifa.isna().sum()
 fifa.dropna(inplace=True)
 
 
+# In[8]:
+
+
+fifa.describe()
+
+
 # ## Questão 1
 # 
 # Qual fração da variância consegue ser explicada pelo primeiro componente principal de `fifa`? Responda como um único float (entre 0 e 1) arredondado para três casas decimais.
 
-# In[69]:
+# In[9]:
 
 
 def q1():
     pca = PCA().fit(fifa)
-
-    return float(round(pca.explained_variance_ratio_[0],3))
+    r = float(round(pca.explained_variance_ratio_[0],3))
+    return r
 q1()
 
 
@@ -104,13 +110,13 @@ q1()
 # 
 # Quantos componentes principais precisamos para explicar 95% da variância total? Responda como un único escalar inteiro.
 
-# In[18]:
+# In[10]:
 
 
 def q2():
     pca = PCA(0.95).fit_transform(fifa)
-
-    return pca.shape[1]
+    r = pca.shape[1]
+    return r
 q2()
 
 
@@ -118,7 +124,7 @@ q2()
 # 
 # Qual são as coordenadas (primeiro e segundo componentes principais) do ponto `x` abaixo? O vetor abaixo já está centralizado. Cuidado para __não__ centralizar o vetor novamente (por exemplo, invocando `PCA.transform()` nele). Responda como uma tupla de float arredondados para três casas decimais.
 
-# In[19]:
+# In[12]:
 
 
 x = [0.87747123,  -1.24990363,  -1.3191255, -36.7341814,
@@ -134,13 +140,13 @@ x = [0.87747123,  -1.24990363,  -1.3191255, -36.7341814,
 ]
 
 
-# In[29]:
+# In[13]:
 
 
 def q3():
     pca = PCA(n_components=2).fit(fifa)
-
-    return tuple(pca.components_.dot(x).round(3))
+    r = tuple(pca.components_.dot(x).round(3))
+    return r
 q3()
 
 
@@ -148,7 +154,7 @@ q3()
 # 
 # Realiza RFE com estimador de regressão linear para selecionar cinco variáveis, eliminando uma a uma. Quais são as variáveis selecionadas? Responda como uma lista de nomes de variáveis.
 
-# In[68]:
+# In[14]:
 
 
 from sklearn.feature_selection import RFE
@@ -168,7 +174,8 @@ def q4():
                               'recomender?': feat_recomender.support_,
                               'coeficients': pd.Series(ln.coef_)}) 
     
-    return list(recomender[recomender['recomender?'] == True]['features'])
+    r = list(recomender[recomender['recomender?'] == True]['features'])
+    return r
 q4()
 
 
